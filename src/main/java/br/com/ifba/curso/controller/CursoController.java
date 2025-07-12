@@ -1,21 +1,27 @@
 package br.com.ifba.curso.controller;
 
 import br.com.ifba.curso.entity.Curso;
-import br.com.ifba.curso.service.CursoService;
 import br.com.ifba.curso.service.CursoIService;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 /**
  *
  * @author Bruno
  */
 
+@Controller // 1. Anotação para marcar como um Bean do Spring
 public class CursoController implements CursoIController {
     
-    private final CursoIService cursoService = new CursoService();
+    @Autowired // 2. Injeta a dependência do serviço
+    private CursoIService cursoService;
+
+    // A linha "private final CursoIService cursoService = new CursoService();" foi REMOVIDA.
 
     @Override
     public Curso saveCurso(Curso curso) {
+        // A lógica de delegação permanece a mesma, mas agora usa o serviço injetado.
         return this.cursoService.saveCurso(curso);
     }
 
