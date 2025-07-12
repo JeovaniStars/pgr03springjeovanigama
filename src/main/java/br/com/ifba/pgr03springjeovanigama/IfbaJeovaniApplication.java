@@ -1,5 +1,6 @@
 package br.com.ifba.pgr03springjeovanigama;
 
+import br.com.ifba.curso.controller.CursoIController;
 import br.com.ifba.curso.view.CursoListar; // Sua tela principal
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -9,14 +10,13 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class IfbaJeovaniApplication {
 
 	public static void main(String[] args) {
-		// Inicializa o Spring em modo "não-headless" para aceitar telas Swing
-        ConfigurableApplicationContext context = new SpringApplicationBuilder(MinhaAplicacao.class)
-                .headless(false).run(args); // Conforme explicado no PDF [cite: 163, 164]
+                ConfigurableApplicationContext context = new SpringApplicationBuilder(IfbaJeovaniApplication.class)
+                .headless(false).run(args);
 
-        java.awt.EventQueue.invokeLater(() -> {
+            java.awt.EventQueue.invokeLater(() -> {
             
             CursoIController cursoController = context.getBean(CursoIController.class);
-            new CursoListar(cursoController).setVisible(true);
+            new CursoListar(cursoController).setVisible(true); 
         });
 }
 

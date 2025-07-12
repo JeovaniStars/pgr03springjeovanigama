@@ -8,11 +8,13 @@ import br.com.ifba.curso.controller.CursoController;
 import br.com.ifba.curso.controller.CursoIController;
 import br.com.ifba.curso.entity.Curso;
 import javax.swing.JOptionPane;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Bruno
  */
+@Component
 public class CursoEditView extends javax.swing.JFrame {
     
     private final CursoIController cursoController;
