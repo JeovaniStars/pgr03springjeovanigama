@@ -15,16 +15,19 @@ import javax.swing.JOptionPane;
  */
 public class CursoSaveView extends javax.swing.JFrame {
 
-    private final CursoIController cursoController;
+    private final CursoIController cursoController; 
     private final CursoListar telaPrincipal;
     
-    public CursoSaveView(CursoListar telaPrincipal) {
+    public CursoSaveView(CursoListar telaPrincipal, CursoIController cursoController) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.telaPrincipal = telaPrincipal;
-        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         
-        this.cursoController = new CursoController();
+        // A linha "this.cursoController = new CursoController();" foi REMOVIDA.
+        // A tela agora usa a instância do controller gerenciada pelo Spring.
+        this.cursoController = cursoController; 
+        
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         
         // Limpa os campos iniciais para um novo cadastro
         txtNome.setText("");

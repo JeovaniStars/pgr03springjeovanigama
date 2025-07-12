@@ -1,4 +1,4 @@
-package br.com.ifba.pgr03springjeovanigama;
+package br.com.ifba;
 
 import br.com.ifba.curso.controller.CursoIController;
 import br.com.ifba.curso.view.CursoListar; // Sua tela principal

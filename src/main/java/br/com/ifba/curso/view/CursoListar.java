@@ -4,17 +4,16 @@
  */
 package br.com.ifba.curso.view;
 
-import br.com.ifba.curso.controller.CursoController;
 import br.com.ifba.curso.controller.CursoIController;
-import br.com.ifba.curso.dao.CursoDao;
 import br.com.ifba.curso.entity.Curso;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.RowFilter;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import org.springframework.stereotype.Component;
+
 
 /**
  *
@@ -23,15 +22,14 @@ import javax.swing.table.TableRowSorter;
 public class CursoListar extends javax.swing.JFrame {
 
     
-    private final CursoIController cursoController; 
-    private List<Curso> cursos; // Guarda a lista de cursos vinda do banco
-    private TableRowSorter<DefaultTableModel> sorter;
+    private final CursoIController cursoController; // A dependência agora é final
+    private List<Curso> cursos;
     
     
-    public CursoListar() {
+    public CursoListar(CursoIController cursoController) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.cursoController = new CursoController();
+        this.cursoController = cursoController; 
         this.configurarTela();
     }
     
@@ -258,24 +256,20 @@ public class CursoListar extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         int linhaSelecionada = tblCursos.getSelectedRow();
-        
-        // Verifica se alguma linha foi selecionada
         if (linhaSelecionada == -1) {
             JOptionPane.showMessageDialog(this, "Por favor, selecione um curso para editar.");
             return;
         }
-
-        // Pega o curso correto da nossa lista 'cursos'
         int indiceReal = tblCursos.convertRowIndexToModel(linhaSelecionada);
         Curso cursoParaEditar = this.cursos.get(indiceReal);
 
-        // Abre a tela de edição, passando a referência desta tela e o objeto a ser editado
-        new CursoEditView(this, cursoParaEditar).setVisible(true);
+        // 2. Passamos o controller para a próxima tela.
+        new CursoEditView(this, cursoParaEditar, this.cursoController).setVisible(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         // TODO add your handling code here:
-        new CursoSaveView(this).setVisible(true);
+        new CursoSaveView(this, this.cursoController).setVisible(true);
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
@@ -289,40 +283,6 @@ public class CursoListar extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnHomescreenActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CursoListar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CursoListar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CursoListar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CursoListar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CursoListar().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
